@@ -28,8 +28,15 @@ function PrintHtmlElement() {
             templateString: opts.templateString || '',
             popupProperties: opts.popupProperties || '',
             stylesheets: opts.stylesheets || null,
-            styles: opts.styles || null
+            styles: opts.styles || null,
+            debug: opts.debug || false,
         };
+        
+        if (opts.debug) {
+            // Debug mode (i.e. not closing a popup after printing) 
+            // makes no sense in "iframe" mode... so enforcing "popup"
+            opts.printMode = "popup"
+        }
 
         // Get markup to be printed
         var markup = _getMarkup(html, opts),
@@ -143,7 +150,7 @@ function PrintHtmlElement() {
         html.push('<base href="' + _getBaseHref() + '" />');
         html.push('</head><body class="pe-body">');
         html.push(elementHtml);
-        html.push('<script type="text/javascript">function printPage(){focus();print();' + ((opts.printMode.toLowerCase() == 'popup') ? 'close();' : '') + '}</script>');
+        html.push('<script type="text/javascript">function printPage(){focus();' + (opts.debug ? '' : 'print();') + ((opts.printMode.toLowerCase() == 'popup' && !opts.debug) ? 'close();' : '') + '}</script>');
         html.push('</body></html>');
 
         return html.join('');

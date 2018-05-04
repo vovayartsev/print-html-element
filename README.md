@@ -56,19 +56,21 @@ An HTML class `pe-body` is also added to the body of the print area which can be
         popupProperties: string;
         stylesheets: string | string[];
         styles: string | string[];
+        debug: boolean;
     };
 
     PHE.printElement( elem, opts ); // Prints a DOM Element
     PHE.printHtml( str, opts ); // Prints an HTML string
 ```
 
-- printMode determines which method is used to print. As a hidden `iframe` (default), or `popup` window
+- printMode determines which method is used to print. As a hidden `iframe` (default), or `popup` window.
 - pageTitle sets the printed page title (defaults to blank)
 - templateString allows you to define a template that the html will be printed within.
     - Use `{{printBody}}` within the template to signify where the HTML should be injected
 - popupProperties set the window features (such as `menubar`, `scrollbars`, etc. in `popup` mode
 - stylesheets overrides parsed `link` tags and instead injects `link` tags with hrefs specified as either a single string or array of strings
 - styles overrides parsed `style` tags and instead injects `style` blocks specified as either a single string or array of strings
+- debug enforces `popup` mode, but just opens the content window instead of printing
 
 
 ## Possible future features
